@@ -1,0 +1,12 @@
+{
+  "name": "mps-design-registry",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Photo-based design numbering for MPS Silks, backed by Google Sheets.",
+  "scripts": {
+    "build": "node tools/build-gs.js",
+    "test": "node tools/build-gs.js && node tests/backend.test.js && node tests/palette.test.js",
+    "test:e2e": "python tests/e2e/e2e_v3.py",
+    "start": "node tools/dev-server.js"
+  }
+}

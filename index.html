@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>MPS Silks — Inventory Datasheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500;6..96,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top no-print">
+  <div class="brand-wrap">
+    <a href="#bundles" class="brand" aria-label="MPS Silks">
+      <img src="assets/mps-logo.png" alt="MPS Silks" class="logo-mps" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'wordmark',textContent:'MPS SILKS'}))">
+    </a>
+  </div>
+
+  <nav class="nav" id="nav" aria-label="Main Navigation">
+    <a href="#bundles" data-view="bundles" id="nav-bundles">Bundles</a>
+    <a href="#bundle-new" data-view="bundle-new" id="nav-bundle-new">+ New Bundle</a>
+    <a href="#finder" data-view="finder" id="nav-finder">Design Finder</a>
+    <a href="#catalogue" data-view="catalogue" id="nav-catalogue">Catalogue</a>
+    <a href="#status" data-view="status" id="nav-status">Status</a>
+    <a href="#report" data-view="report" id="nav-report">Monthly Report</a>
+    <a href="#admin" data-view="admin" id="nav-admin">Masters & Users</a>
+  </nav>
+
+  <div class="top-actions">
+    <!-- Offline / Sync Badge -->
+    <button id="btn-sync" class="sync-badge" title="Offline sync status">
+      <span class="dot online" id="net-dot"></span>
+      <span id="sync-text">Online</span>
+    </button>
+
+    <!-- User identity & Logout -->
+    <div id="user-info" class="user-badge" hidden>
+      <span id="user-name">Staff</span>
+      <span id="user-role" class="user-role-tag">entry</span>
+    </div>
+    <button id="btn-logout" class="btn ghost small" hidden>Exit</button>
+
+    <div class="partner">
+      <span class="by">Prepared by</span>
+      <img src="assets/cb-logo.png" alt="C&B Consulting" class="logo-cb" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'wordmark small',textContent:'C&B'}))">
+    </div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="foot no-print">
+  <span>MPS Silks · Inventory Datasheet System</span>
+  <span id="app-status">Ready</span>
+  <span class="partner-foot">Consultant: C&B</span>
+</footer>
+
+<!-- Toast notification -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- Outbox / Pending sync dialog -->
+<dialog id="outbox-modal" class="modal">
+  <h3>Pending Offline Items</h3>
+  <p class="lede" style="margin-bottom: 16px;">Items saved while offline will sync automatically when reconnected.</p>
+  <div id="outbox-list" style="max-height: 260px; overflow-y: auto; margin-bottom: 20px;"></div>
+  <div class="btn-group">
+    <button id="btn-sync-now" class="btn small gold">Sync Now</button>
+    <button id="btn-close-outbox" class="btn small ghost">Close</button>
+  </div>
+</dialog>
+
+<script src="js/config.js"></script>
+<script src="js/core.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(err => {
+        console.warn('SW registration failed:', err);
+      });
+    });
+  }
+</script>
+</body>
+</html>
